@@ -4,7 +4,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import store from './store';
-import iView from 'iview';
+import ViewUI from 'view-design';
 import i18n from '@/locale';
 import config from '@/config';
 import importDirective from '@/directives';
@@ -22,17 +22,29 @@ import Enum from 'vue-enum';
 import enumInfo from '@/constants';
 // 处理table操作按钮
 import tableAction from './lib/table-action';
+
+//时间
+import moment from 'moment'; 
+
+
 Vue.prototype.$tableAction = tableAction;
 Vue.use(Enum, { enumInfo });
-Vue.use(iView, {
+Vue.use(ViewUI, {
   i18n: (key, value) => i18n.t(key, value)
 });
 Vue.use(JsonViewer);
 Vue.use(vClickOutside);
+
+
 Number.prototype.toFixed = function (length) {
   let x = new Decimal(this);
   return x.toFixed(length);
 };
+
+//时间处理
+moment.locale('zh-cn'); //设置语言 或 moment.lang('zh-cn'); 
+Vue.prototype.$moment = moment;//赋值使用
+
 
 /**
  * @description 注册admin内置插件
